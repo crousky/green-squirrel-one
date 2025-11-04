@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    title: "Project Alpha",
+    description: "A cutting-edge web application built with modern technologies. Features real-time updates and responsive design.",
+    technologies: ["React", "Node.js", "PostgreSQL"],
+    link: "#"
+  },
+  {
+    title: "Project Beta",
+    description: "Mobile-first e-commerce platform with seamless payment integration and inventory management.",
+    technologies: ["Next.js", "TypeScript", "Stripe"],
+    link: "#"
+  },
+  {
+    title: "Project Gamma",
+    description: "Open-source developer tools for API testing and documentation. Trusted by thousands of developers.",
+    technologies: ["Python", "FastAPI", "Docker"],
+    link: "#"
+  },
+  {
+    title: "Project Delta",
+    description: "AI-powered analytics dashboard providing insights and predictive modeling for business intelligence.",
+    technologies: ["Vue.js", "TensorFlow", "MongoDB"],
+    link: "#"
+  }
+];
+---
+
+<BaseLayout title="Home">
+  <section class="hero">
+    <h1>Welcome to Green Squirrel</h1>
+    <p class="hero-subtitle">Building innovative solutions, one project at a time</p>
+  </section>
+
+  <section class="projects">
+    <h2>Our Projects</h2>
+    <div class="projects-grid">
+      {projects.map((project) => (
+        <article class="project-card">
+          <h3>{project.title}</h3>
+          <p>{project.description}</p>
+          <div class="technologies">
+            {project.technologies.map((tech) => (
+              <span class="tech-tag">{tech}</span>
+            ))}
+          </div>
+          <a href={project.link} class="project-link">Learn More →</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <style>
+    .hero {
+      text-align: center;
+      padding: 3rem 0;
+      margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      color: var(--green-primary);
+      margin-bottom: 1rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: var(--green-secondary);
+    }
+
+    .projects h2 {
+      font-size: 2rem;
+      color: var(--green-primary);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .project-card {
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .project-card h3 {
+      color: var(--green-primary);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .project-card p {
+      margin-bottom: 1rem;
+      color: #666;
+    }
+
+    .technologies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tech-tag {
+      background-color: var(--green-accent);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      font-size: 0.875rem;
+    }
+
+    .project-link {
+      color: var(--green-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .project-link:hover {
+      color: var(--green-primary);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</BaseLayout>
