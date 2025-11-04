@@ -5,205 +5,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="About">
   <section class="about-hero">
     <h1>About Green Squirrel</h1>
-    <p class="tagline">Crafting digital experiences with passion and precision</p>
-  </section>
-
-  <section class="about-content">
-    <div class="about-section">
-      <h2>Who We Are</h2>
-      <p>
-        Green Squirrel is a development company dedicated to creating innovative software solutions
-        that make a difference. We combine technical expertise with creative problem-solving to
-        deliver projects that exceed expectations.
-      </p>
-      <p>
-        Our team is passionate about clean code, modern architecture, and building applications
-        that are not only functional but delightful to use.
-      </p>
-    </div>
-
-    <div class="about-section">
-      <h2>What We Do</h2>
-      <ul class="services-list">
-        <li>
-          <strong>Web Development</strong>
-          <p>Modern, responsive web applications using the latest technologies and best practices.</p>
-        </li>
-        <li>
-          <strong>Mobile Apps</strong>
-          <p>Cross-platform mobile solutions that deliver seamless user experiences.</p>
-        </li>
-        <li>
-          <strong>Cloud Solutions</strong>
-          <p>Scalable cloud infrastructure and deployment on Azure, AWS, and other platforms.</p>
-        </li>
-        <li>
-          <strong>Open Source</strong>
-          <p>Contributing to and creating open-source tools that benefit the developer community.</p>
-        </li>
-      </ul>
-    </div>
-
-    <div class="about-section">
-      <h2>Our Approach</h2>
-      <p>
-        We believe in agile development, continuous integration, and maintaining open communication
-        throughout every project. Quality is not just a goal—it's our standard.
-      </p>
-      <div class="values">
-        <div class="value-card">
-          <h3>🎯 Quality First</h3>
-          <p>We never compromise on code quality or user experience.</p>
-        </div>
-        <div class="value-card">
-          <h3>🚀 Innovation</h3>
-          <p>Always exploring new technologies and better ways to solve problems.</p>
-        </div>
-        <div class="value-card">
-          <h3>🤝 Collaboration</h3>
-          <p>Working closely with clients and the community to achieve great results.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="about-section cta">
-      <h2>Let's Work Together</h2>
-      <p>
-        Interested in collaborating on a project? We'd love to hear from you.
-      </p>
-      <a href="mailto:hello@greensquirrel.dev" class="contact-button">Get in Touch</a>
-    </div>
+    <p class="message">Green Squirrel is a small development group</p>
   </section>
 
   <style>
     .about-hero {
       text-align: center;
-      padding: 3rem 0;
-      margin-bottom: 3rem;
-      border-bottom: 2px solid var(--green-accent);
+      padding: 5rem 2rem;
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .about-hero h1 {
       font-size: 3rem;
       color: var(--green-primary);
-      margin-bottom: 1rem;
-    }
-
-    .tagline {
-      font-size: 1.5rem;
-      color: var(--green-secondary);
-      font-style: italic;
-    }
-
-    .about-content {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .about-section {
-      margin-bottom: 3rem;
-    }
-
-    .about-section h2 {
-      font-size: 2rem;
-      color: var(--green-primary);
-      margin-bottom: 1rem;
-    }
-
-    .about-section p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #555;
-      margin-bottom: 1rem;
-    }
-
-    .services-list {
-      list-style: none;
-      display: grid;
-      gap: 1.5rem;
-    }
-
-    .services-list li {
-      background-color: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      border-left: 4px solid var(--green-accent);
-    }
-
-    .services-list strong {
-      color: var(--green-primary);
-      font-size: 1.2rem;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-
-    .services-list p {
-      margin: 0;
-      font-size: 1rem;
-    }
-
-    .values {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-
-    .value-card {
-      background-color: var(--card-bg);
-      padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      text-align: center;
-    }
-
-    .value-card h3 {
-      color: var(--green-primary);
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
-    }
-
-    .value-card p {
-      font-size: 1rem;
-      margin: 0;
-    }
-
-    .cta {
-      text-align: center;
-      background: linear-gradient(135deg, var(--green-primary), var(--green-secondary));
-      color: white;
-      padding: 3rem 2rem;
-      border-radius: 12px;
-      margin-top: 4rem;
-    }
-
-    .cta h2 {
-      color: white;
-      margin-bottom: 1rem;
-    }
-
-    .cta p {
-      color: white;
-      font-size: 1.2rem;
       margin-bottom: 2rem;
     }
 
-    .contact-button {
-      display: inline-block;
-      background-color: white;
-      color: var(--green-primary);
-      padding: 1rem 2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .contact-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    .message {
+      font-size: 1.5rem;
+      color: var(--text-color);
+      max-width: 800px;
     }
 
     @media (max-width: 768px) {
@@ -211,12 +36,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         font-size: 2rem;
       }
 
-      .tagline {
+      .message {
         font-size: 1.2rem;
-      }
-
-      .values {
-        grid-template-columns: 1fr;
       }
     }
   </style>

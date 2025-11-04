@@ -31,8 +31,13 @@ const projects = [
 
 <BaseLayout title="Home">
   <section class="hero">
-    <h1>Welcome to Green Squirrel</h1>
-    <p class="hero-subtitle">Building innovative solutions, one project at a time</p>
+    <video class="hero-video" autoplay loop muted playsinline>
+      <source src="/src/layouts/Green_Squirrel_Matrix_Synthwave_Video.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <h1>Welcome to Green Squirrel</h1>
+      <p class="hero-subtitle">Building innovative solutions, one project at a time</p>
+    </div>
   </section>
 
   <section class="projects">
@@ -55,20 +60,50 @@ const projects = [
 
   <style>
     .hero {
+      position: relative;
       text-align: center;
-      padding: 3rem 0;
-      margin-bottom: 3rem;
+      padding: 8rem 2rem;
+      margin: -2rem -2rem 3rem -2rem;
+      overflow: hidden;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      object-fit: cover;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 3rem;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
     }
 
     .hero h1 {
       font-size: 3rem;
-      color: var(--green-primary);
+      color: #ffffff;
       margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
     }
 
     .hero-subtitle {
       font-size: 1.5rem;
-      color: var(--green-secondary);
+      color: #e0e0e0;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     }
 
     .projects h2 {
@@ -136,6 +171,15 @@ const projects = [
     }
 
     @media (max-width: 768px) {
+      .hero {
+        padding: 5rem 1rem;
+        min-height: 400px;
+      }
+
+      .hero-content {
+        padding: 2rem;
+      }
+
       .hero h1 {
         font-size: 2rem;
       }
