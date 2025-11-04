@@ -1,0 +1,45 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run Astro Dev Server",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "serverReadyAction": {
+        "pattern": "Local.*?(https?://localhost:[0-9]+)",
+        "uriFormat": "%s",
+        "action": "openExternally"
+      }
+    },
+    {
+      "name": "Build Astro Site",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "build"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Preview Astro Build",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "serverReadyAction": {
+        "pattern": "Local.*?(https?://localhost:[0-9]+)",
+        "uriFormat": "%s",
+        "action": "openExternally"
+      }
+    }
+  ]
+}
