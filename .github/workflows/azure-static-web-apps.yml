@@ -9,6 +9,12 @@ on:
     branches:
       - main
 
+env:
+  AZURE_SUBSCRIPTION_ID: 'a56d4985-727e-42bd-bbda-5b93193d0f8b'
+  RESOURCE_GROUP: 'rg-green-squirrel'
+  STATIC_WEB_APP_NAME: 'green-squirrel'
+  LOCATION: 'eastus2'
+
 jobs:
   build_and_deploy_job:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
@@ -18,7 +24,38 @@ jobs:
       - uses: actions/checkout@v4
         with:
           submodules: true
-          lfs: false
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Create Resource Group (if not exists)
+        run: |
+          az group create \
+            --name ${{ env.RESOURCE_GROUP }} \
+            --location ${{ env.LOCATION }} \
+            --subscription ${{ env.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy Bicep Template
+        id: bicep-deploy
+        run: |
+          az deployment group create \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --template-file ./infra/main.bicep \
+            --parameters staticWebAppName=${{ env.STATIC_WEB_APP_NAME }} location=${{ env.LOCATION }} \
+            --subscription ${{ env.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Get Deployment Token
+        id: get-token
+        run: |
+          DEPLOYMENT_TOKEN=$(az staticwebapp secrets list \
+            --name ${{ env.STATIC_WEB_APP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --subscription ${{ env.AZURE_SUBSCRIPTION_ID }} \
+            --query "properties.apiKey" -o tsv)
+          echo "::add-mask::$DEPLOYMENT_TOKEN"
+          echo "deployment_token=$DEPLOYMENT_TOKEN" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -29,28 +66,54 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Astro site
+      - name: Build
         run: npm run build
 
       - name: Deploy to Azure Static Web Apps
-        id: deploy
+        id: builddeploy
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          azure_static_web_apps_api_token: ${{ steps.get-token.outputs.deployment_token }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "/"
-          output_location: "dist"
+          app_location: "dist"
+          output_location: ""
           skip_app_build: true
+
+      - name: Azure Logout
+        if: always()
+        run: az logout
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest
     name: Close Pull Request Job
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Get Deployment Token
+        id: get-token
+        run: |
+          DEPLOYMENT_TOKEN=$(az staticwebapp secrets list \
+            --name ${{ env.STATIC_WEB_APP_NAME }} \
+            --resource-group ${{ env.RESOURCE_GROUP }} \
+            --subscription ${{ env.AZURE_SUBSCRIPTION_ID }} \
+            --query "properties.apiKey" -o tsv)
+          echo "::add-mask::$DEPLOYMENT_TOKEN"
+          echo "deployment_token=$DEPLOYMENT_TOKEN" >> $GITHUB_OUTPUT
+
       - name: Close Pull Request
         id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
-          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
+          azure_static_web_apps_api_token: ${{ steps.get-token.outputs.deployment_token }}
           action: "close"
+
+      - name: Azure Logout
+        if: always()
+        run: az logout
